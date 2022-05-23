@@ -2,8 +2,9 @@ import React, { createContext, Fragment } from "react";
 import GlobalStyle from "./styles/globalStyles";
 import { ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/themes";
-import styled from "styled-components";
 import useLocalStorageState from "./utils/useLocalStorageState";
+import Theme from "./components/Theme";
+import ResponsiveRendering from "./components/ResponsiveRendering";
 
 const themesMap = {
   light,
@@ -17,6 +18,7 @@ export default function App() {
     "theme",
     "light"
   );
+
   const theme = { colors: themesMap[currentTheme] };
 
   return (
@@ -26,24 +28,17 @@ export default function App() {
       >
         <ThemeProvider theme={theme}>
           <GlobalStyle />
+          {/* Exemple: */}
 
-          {/* Template Styled Components */}
-          <select
-            value={currentTheme}
-            onChange={(e) => setCurrentTheme(e.target.value)}
-          >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-          <Text>Hello world</Text>
+          {/* Theme Switcher exemple*/}
+          <Theme
+            currentTheme={currentTheme}
+            setCurrentTheme={setCurrentTheme}
+          />
+          {/* Responsive Rendering Exemple */}
+          <ResponsiveRendering />
         </ThemeProvider>
       </ThemePreferenceContext.Provider>
     </Fragment>
   );
 }
-
-const Text = styled.p(
-  ({ theme }) => `
-    color: ${theme.colors.primary}
-  `
-);
